@@ -11,7 +11,7 @@
   "env": {
       "APP_ENV": "production",
       "APP_DEBUG": "true",
-      "APP_URL": "https://yourprojectdomain.com",
+      "APP_URL": "https://br24-integration.vercel.app",
       "APP_KEY": "base64:8B/Rm4gmLjPDQ5gzOx3WfuKy7FM74MeI6C7Ug0NR3Lk=",
 
       "APP_CONFIG_CACHE": "/tmp/config.php",
