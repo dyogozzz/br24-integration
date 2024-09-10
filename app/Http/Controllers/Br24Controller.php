@@ -15,6 +15,7 @@ class Br24Controller extends Controller
 
         $redirectUrl = "https://frontend-for-integration.vercel.app/?DOMAIN={$domain}&PROTOCOL={$protocol}&LANG={$lang}&APP_SID={$appSid}";
 
-        return redirect()->to($redirectUrl, 307);
+        return response('', 302)->header('Location', $redirectUrl);
+        // return redirect()->to($redirectUrl, 307);
     }
 }
