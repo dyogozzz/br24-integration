@@ -25,11 +25,37 @@ class Br24Controller extends Controller
             'select' => [ "*"]
         ));
         
-        $result = Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
-        $result = json_decode($result, 1);
+        $result = Br24Conn::ConnWH($queryData, $queryUrl, 0);
+        $companies = json_decode($result, 1);
+
+        $queryUrl = 'crm.contact.list';
+        $queryData = http_build_query(array(
+            'select' => [ "*"]
+        ));
+        
+        $result = Br24Conn::ConnWH($queryData, $queryUrl, 0);
+        $contacts = json_decode($result, 1);
+
+        foreach($contacts as $contact) {
+            $found = array_search($contact->COMPANY_ID, array_column($companies, 'ID'));
+            
+            return response($found, 200);
+        }
 
         return response($result, 200);
     }
+
+    // public function getCompanies(Request $request) {
+    //     $queryUrl = 'crm.company.list';
+    //     $queryData = http_build_query(array(      
+    //         'select' => [ "*"]
+    //     ));
+        
+    //     $result = Br24Conn::ConnWH($queryData, $queryUrl, 0);
+    //     $result = json_decode($result, 1);
+
+    //     return response($result, 200);
+    // }
 
     public function getContacts(Request $request) {
         $queryUrl = 'crm.contact.list';
@@ -37,9 +63,42 @@ class Br24Controller extends Controller
             'select' => [ "*"]
         ));
         
-        $result = Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
+        $result = Br24Conn::ConnWH($queryData, $queryUrl, 0);
         $result = json_decode($result, 1);
 
         return response($result, 200);
+    }
+
+    public function createCompany(Request $request) {
+        $queryUrl = 'crm.company.add';
+        $queryData = http_build_query(array(
+            'company_name' => $request->company_name,
+        ));
+
+        $result = Br24Conn::connWH($queryData, $queryUrl, 0);
+        $company = json_decode($result, 1);
+
+        $queryUrl = 'crm.company.contact.add';
+        $queryData = http_build_query(array(
+            'name' => $request->contact_name_1,
+            'second_name' => $request->contact_second_name_1,
+            'company_id'=> $company->id,
+        ));
+        
+        $result = Br24Conn::connWH($queryData, $queryUrl, 0);
+        $contact1 = json_decode($result, 1);
+        $company->contacts = array($contact1);
+        
+        $queryData = http_build_query(array(
+            'name' => $request->contact_name_2,
+            'second_name' => $request->contact_second_name_2,
+            'company_id'=> $company->id,
+        ));
+
+        $result = Br24Conn::connWH($queryData, $queryUrl, 0);
+        $contact2 = json_decode($result, 1);
+        $company->contacts[] = $contact2;
+
+        response($company, 200);
     }
 }
