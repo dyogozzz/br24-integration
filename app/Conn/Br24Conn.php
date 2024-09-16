@@ -15,7 +15,8 @@ class Br24Conn
   }
 
   public static function ConnWH($queryData, $queryUrl, $ssl_verify) {
-    $queryUrl1 = 'https://b24-p96ng2.bitrix24.com.br/rest/1/j2polcca4tzhxkpk/'.$queryUrl;
+    
+    $queryUrl1 = 'https://b24-p96ng2.bitrix24.com.br/rest/1/prbadcock0duo36t/'.$queryUrl;
     $curl = curl_init();
 
     curl_setopt_array($curl, array(
