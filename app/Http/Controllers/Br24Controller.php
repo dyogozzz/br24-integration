@@ -36,9 +36,9 @@ class Br24Controller extends Controller
         $result = Br24Conn::ConnWH($queryData, $queryUrl, 0);
         $contacts = json_decode($result, 1);
 
-        foreach($result as $contact) {
-            return response($contact->COMPANY_ID, 200);
-            // $found = array_search($contact->COMPANY_ID, array_column($companies, 'ID'));
+        foreach($contacts as $contact) {
+            // return response($contact['COMPANY_ID'], 200);
+            $found = array_search($contact['COMPANY_ID'], array_column($companies, 'ID'));
             
             return response($found, 200);
         }
