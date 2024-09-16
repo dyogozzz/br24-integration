@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Conn\br24Conn;
+namespace App\Conn\Br24Conn;
 
 class Br24Conn
 {
