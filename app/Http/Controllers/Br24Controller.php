@@ -52,6 +52,8 @@ class Br24Controller extends Controller
         return response($companies, 200);
     }
 
+
+
     // public function getCompanies(Request $request) {
     //     $queryUrl = 'crm.company.list';
     //     $queryData = http_build_query(array(      
@@ -77,6 +79,13 @@ class Br24Controller extends Controller
     }
 
     public function createCompany(Request $request) {
+        $request->validate([
+            'companyName' => 'required|string',
+            'contacts' => 'required|array',
+            'contacts.*.name' => 'required|string',
+            'contacts.*.surname' => 'required|string',
+        ]);
+
         $queryUrl = 'crm.company.add';
         $queryData = http_build_query(array(
             'company_name' => $request->company_name,
@@ -85,26 +94,29 @@ class Br24Controller extends Controller
         $result = Br24Conn::connWH($queryData, $queryUrl, 0);
         $company = json_decode($result, 1);
 
-        $queryUrl = 'crm.company.contact.add';
-        $queryData = http_build_query(array(
-            'name' => $request->contact_name_1,
-            'second_name' => $request->contact_second_name_1,
-            'company_id'=> $company->id,
-        ));
+        if(!isset($company['id'])) {
+            return response()->json(['error' => 'Error during company creation'], 500);
+        }
         
-        $result = Br24Conn::connWH($queryData, $queryUrl, 0);
-        $contact1 = json_decode($result, 1);
-        $company->contacts = array($contact1);
-        
-        $queryData = http_build_query(array(
-            'name' => $request->contact_name_2,
-            'second_name' => $request->contact_second_name_2,
-            'company_id'=> $company->id,
-        ));
+        $company['contacts'] = [];
 
-        $result = Br24Conn::connWH($queryData, $queryUrl, 0);
-        $contact2 = json_decode($result, 1);
-        $company->contacts[] = $contact2;
+        foreach ($request->contacts as $contact) {
+            $queryUrl = 'crm.company.contact.add';
+            $queryData = http_build_query([
+                'NAME' => $contact['name'],
+                'LAST_NAME' => $contact['surname'],
+                'COMPANY_ID' => $company['id'],
+            ]);
+    
+            $result = Br24Conn::connWH($queryData, $queryUrl, 0);
+            $contactResult = json_decode($result, true);
+    
+            if (isset($contactResult['id'])) {
+                $company['contacts'][] = $contactResult;
+            } else {
+                return response()->json(['error' => 'Error during contact creation'], 500);
+            }
+        }
 
         response($company, 200);
     }
