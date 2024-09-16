@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Conn\br24conn;
+use App\Conn\br24Conn;
 
 class Br24Controller extends Controller
 {
@@ -26,7 +26,7 @@ class Br24Controller extends Controller
                 
         'select' => [ "ID", "NAME", "LAST_NAME", "UF_CRM_1588503377", "PHONE", "EMAIL"]
         ));
-        $result = br24conn::ConnWH($queryData, $queryUrl, 0) ;
+        $result = br24Conn::ConnWH($queryData, $queryUrl, 0) ;
         $result = json_decode($result, 1);
 
         return response('', 200)->json();
