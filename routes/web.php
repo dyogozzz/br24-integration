@@ -19,3 +19,5 @@ Route::get('/', function () {
 });
 
 Route::post('/', [Br24Controller::class, 'handlePost']);
+
+Route::get('/teste', [Br24Controller::class, 'geter']);
