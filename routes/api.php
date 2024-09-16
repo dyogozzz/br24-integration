@@ -8,4 +8,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/teste', [Br24Controller::class, 'geter']);
+Route::get('/companies', [Br24Controller::class, 'getCompanies']);
+Route::get('/contacts', [Br24Controller::class, 'getContacts']);

@@ -19,11 +19,22 @@ class Br24Controller extends Controller
         return response('', 302)->header('Location', $redirectUrl);
     }
 
-    public function geter(Request $request) {
+    public function getCompanies(Request $request) {
         $queryUrl = 'crm.company.list';
+        $queryData = http_build_query(array(      
+            'select' => [ "*"]
+        ));
+        
+        $result = Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
+        $result = json_decode($result, 1);
+
+        return response($result, 200);
+    }
+
+    public function getContacts(Request $request) {
+        $queryUrl = 'crm.contact.list';
         $queryData = http_build_query(array(
-                  
-        'select' => [ "ID","TITLE", "UF_CRM_1588503398",'UF_CRM_1588548671']
+            'select' => [ "*"]
         ));
         
         $result = Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
