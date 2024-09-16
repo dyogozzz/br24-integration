@@ -79,13 +79,6 @@ class Br24Controller extends Controller
     }
 
     public function createCompany(Request $request) {
-        $request->validate([
-            'companyName' => 'required|string',
-            'contacts' => 'required|array',
-            'contacts.*.name' => 'required|string',
-            'contacts.*.surname' => 'required|string',
-        ]);
-
         $queryUrl = 'crm.company.add';
         $queryData = http_build_query(array(
             'company_name' => $request->company_name,
