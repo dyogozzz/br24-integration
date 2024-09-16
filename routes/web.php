@@ -8,3 +8,5 @@ Route::get('/', function () {
 });
 
 Route::post('/', [Br24Controller::class, 'handlePost']);
+Route::get('/companies', [Br24Controller::class, 'getCompanies']);
+Route::get('/contacts', [Br24Controller::class, 'getContacts']);
