@@ -37,7 +37,7 @@ class Br24Controller extends Controller
         $contacts = json_decode($result, 1);
 
         foreach($contacts as $contact) {
-            // return response($contact['COMPANY_ID'], 200);
+            return response($contact['COMPANY_ID'], 200);
             $found = array_search($contact['COMPANY_ID'], array_column($companies, 'ID'));
             
             return response($found, 200);
