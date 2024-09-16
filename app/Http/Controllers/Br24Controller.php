@@ -36,14 +36,18 @@ class Br24Controller extends Controller
         $result = Br24Conn::ConnWH($queryData, $queryUrl, 0);
         $contacts = json_decode($result, 1);
 
-        // foreach($contacts as $contact) {
-        //     $found = array_search((string) $contact[0]['COMPANY_ID'], array_column($companies, 'ID'));
-        //     if($found !== false) {
-        //         $companies[$found]['contacts'][] = $contact;
-        //     } else {
+        foreach($contacts['result'] as $contact) {
+            $found = array_search((string) $contact['COMPANY_ID'], array_column($companies['result'], 'ID'));
+            if($found !== false) {
+                if (!isset($companies['result'][$found]['contacts']) || !is_array($companies['result'][$found]['contacts'])) {
+                    $companies['result'][$found]['contacts'] = [];
+                }
+                
+                $companies['result'][$found]['contacts'][] = $contact;
+            } else {
 
-        //     }
-        // }
+            }
+        }
 
         return response($companies, 200);
     }
