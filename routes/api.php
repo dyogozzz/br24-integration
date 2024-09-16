@@ -9,4 +9,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/companies', [Br24Controller::class, 'getCompanies']);
+Route::post('/companies', [Br24Controller::class, 'createCompany']);
 Route::get('/contacts', [Br24Controller::class, 'getContacts']);
