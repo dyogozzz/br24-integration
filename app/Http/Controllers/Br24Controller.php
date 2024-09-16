@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-require_once ('../Conn/br24Conn.php'); 
+use App\Conn\br24conn;
 
 class Br24Controller extends Controller
 {

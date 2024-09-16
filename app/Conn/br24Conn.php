@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Conn\br24Conn;
+
 class Br24Conn
 {
   public function writeToLog($data, $title = '') {
