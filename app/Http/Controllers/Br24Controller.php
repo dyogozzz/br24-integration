@@ -102,7 +102,7 @@ class Br24Controller extends Controller
         $queryData = http_build_query(array(
             'name' => $request->contact_name_1,
             'second_name' => $request->contact_second_name_1,
-            'company_id'=> $company->id,
+            'company_id'=> $company['ID'],
         ));
         
         $result = Br24Conn::connWH($queryData, $queryUrl, 0);
@@ -115,7 +115,7 @@ class Br24Controller extends Controller
         $queryData = http_build_query(array(
             'name' => $request->contact_name_2,
             'second_name' => $request->contact_second_name_2,
-            'company_id'=> $company->id,
+            'company_id'=> $company['ID'],
         ));
         
         $result = Br24Conn::connWH($queryData, $queryUrl, 0);
