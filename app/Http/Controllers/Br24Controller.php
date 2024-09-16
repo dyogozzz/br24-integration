@@ -29,6 +29,6 @@ class Br24Controller extends Controller
         $result = Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
         $result = json_decode($result, 1);
 
-        return response('', 200)->json();
+        return response($result, 200);
     }
 }
