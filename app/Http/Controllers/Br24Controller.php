@@ -120,4 +120,47 @@ class Br24Controller extends Controller
 
         response($company, 200);
     }
+
+    public function editCompany(Request $request, $id) {
+        $queryUrl = 'crm.company.get';
+        $queryData = http_build_query(array(
+            'ID' => $id,
+        ));
+
+        $result = Br24Conn::connWH($queryData, $queryUrl, 0);
+        $company = json_decode($result, 1);
+
+        if(!isset($company['ID'])) {
+            return response()->json(['error' => 'Error during company select'], 500);
+        }
+        
+        // $queryUrl = 'crm.company.contact.add';
+        // $queryData = http_build_query(array(
+        //     'name' => $request->contact_name_1,
+        //     'second_name' => $request->contact_second_name_1,
+        //     'company_id'=> $company['ID'],
+        // ));
+        
+        // $result = Br24Conn::connWH($queryData, $queryUrl, 0);
+        // $contact1 = json_decode($result, 1);
+
+        // if(!isset($contact1['ID'])) {
+        //     return response()->json(['error' => 'Error during first contact creation'], 500);
+        // }
+        
+        // $queryData = http_build_query(array(
+        //     'name' => $request->contact_name_2,
+        //     'second_name' => $request->contact_second_name_2,
+        //     'company_id'=> $company['ID'],
+        // ));
+        
+        // $result = Br24Conn::connWH($queryData, $queryUrl, 0);
+        // $contact2 = json_decode($result, 1);
+
+        // if(!isset($contact2['ID'])) {
+        //     return response()->json(['error' => 'Error during second contact creation'], 500);
+        // }
+
+        response($company, 200);
+    }
 }
