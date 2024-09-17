@@ -70,7 +70,7 @@ class Br24Controller extends Controller
         $queryUrl = 'crm.company.add';
         $queryData = http_build_query(array(
             'fields' => array(
-                'company_name' => $request->company_name,
+                'TITLE' => $request->company_name,
                 'email' => $request->email,
             )
         ));
@@ -85,9 +85,9 @@ class Br24Controller extends Controller
         
         $queryUrl = 'crm.company.contact.add';
         $queryData = http_build_query(array(
-            'name' => $request->contact_name_1,
-            'second_name' => $request->contact_second_name_1,
-            'company_id'=> $company['ID'],
+            'NAME' => $request->contact_name_1,
+            'SECOND_NAME' => $request->contact_second_name_1,
+            'COMPANY_ID'=> $company['ID'],
         ));
         
         $result = Br24Conn::connWH($queryData, $queryUrl, 0);
@@ -98,9 +98,9 @@ class Br24Controller extends Controller
         }
         
         $queryData = http_build_query(array(
-            'name' => $request->contact_name_2,
-            'second_name' => $request->contact_second_name_2,
-            'company_id'=> $company['ID'],
+            'NAME' => $request->contact_name_2,
+            'SECOND_NAME' => $request->contact_second_name_2,
+            'COMPANY_ID'=> $company['ID'],
         ));
         
         $result = Br24Conn::connWH($queryData, $queryUrl, 0);
@@ -131,16 +131,16 @@ class Br24Controller extends Controller
             $queryData = http_build_query(array(
                 'ID' => $request->contact_1_id,
                 'fields' => array(
-                    'name' => $request->contact_name_1,
-                    'second_name' => $request->contact_second_name_1,
+                    'NAME' => $request->contact_name_1,
+                    'SECOND_NAME' => $request->contact_second_name_1,
                 ),
             ));
         } else {
             $queryUrl = 'crm.company.contact.add';
             $queryData = http_build_query(array(
-                'company_id' => $id,
-                'name' => $request->contact_name_1,
-                'second_name' => $request->contact_second_name_1,
+                'COMPANY_ID' => $id,
+                'NAME' => $request->contact_name_1,
+                'SECOND_NAME' => $request->contact_second_name_1,
             ));
         }
 
@@ -152,16 +152,16 @@ class Br24Controller extends Controller
             $queryData = http_build_query(array(
                 'ID' => $request->contact_2_id,
                 'fields' => array(
-                    'name' => $request->contact_name_2,
-                    'second_name' => $request->contact_second_name_2,
+                    'NAME' => $request->contact_name_2,
+                    'SECOND_NAME' => $request->contact_second_name_2,
                 ),
             ));
         } else {
             $queryUrl = 'crm.company.contact.add';
             $queryData = http_build_query(array(
-                'company_id' => $id,
-                'name' => $request->contact_name_2,
-                'second_name' => $request->contact_second_name_2,
+                'COMPANY_ID' => $id,
+                'NAME' => $request->contact_name_2,
+                'SECOND_NAME' => $request->contact_second_name_2,
             ));
         }
         
@@ -184,6 +184,5 @@ class Br24Controller extends Controller
 
         $result = Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
         $result = json_decode($result, 1);
-        Br24Conn::writeToLog($result, 'CREAT FIELD');
     }
 }
