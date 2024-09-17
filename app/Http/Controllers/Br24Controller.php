@@ -78,7 +78,7 @@ class Br24Controller extends Controller
         $result = Br24Conn::connWH($queryData, $queryUrl, 0);
         $company = json_decode($result, 1);
 
-        if(!isset($company['ID'])) {
+        if(!isset($company['result'])) {
             return response()->json(['error' => $request->company_name, 'other' => $company], 500);
             // return response()->json(['error' => 'Error during company creation'], 500);
         }
@@ -87,26 +87,26 @@ class Br24Controller extends Controller
         $queryData = http_build_query(array(
             'NAME' => $request->contact_name_1,
             'SECOND_NAME' => $request->contact_second_name_1,
-            'COMPANY_ID'=> $company['ID'],
+            'COMPANY_ID'=> $company['result'],
         ));
         
         $result = Br24Conn::connWH($queryData, $queryUrl, 0);
         $contact1 = json_decode($result, 1);
 
-        if(!isset($contact1['ID'])) {
+        if(!isset($contact1['result'])) {
             return response()->json(['error' => 'Error during first contact creation'], 500);
         }
         
         $queryData = http_build_query(array(
             'NAME' => $request->contact_name_2,
             'SECOND_NAME' => $request->contact_second_name_2,
-            'COMPANY_ID'=> $company['ID'],
+            'COMPANY_ID'=> $company['result'],
         ));
         
         $result = Br24Conn::connWH($queryData, $queryUrl, 0);
         $contact2 = json_decode($result, 1);
 
-        if(!isset($contact2['ID'])) {
+        if(!isset($contact2['result'])) {
             return response()->json(['error' => 'Error during second contact creation'], 500);
         }
 
