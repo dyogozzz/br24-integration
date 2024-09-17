@@ -227,7 +227,18 @@ class Br24Controller extends Controller
         }
     }
 
-    public function createFields(){
+    public function deleteCompany(Request $request, $id) {
+        $queryUrl = 'crm.company.delete';
+        $queryData = http_build_query(array(
+            'ID' => $id));
+
+        $result = Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
+        $result = json_decode($result, 1);
+        
+        return response('', 200);
+    }
+
+    public function createFields() {
         $queryUrl = 'crm.company.userfield.add';
         $queryData = http_build_query(array(
             'fields' => array(
