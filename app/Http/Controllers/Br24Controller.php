@@ -94,8 +94,7 @@ class Br24Controller extends Controller
         $contact1 = json_decode($result, 1);
 
         if(!isset($contact1['result'])) {
-            return response()->json(['error' => $contact1], 500);
-            // return response()->json(['error' => 'Error during first contact creation'], 500);
+            return response()->json(['error' => 'Error during first contact creation'], 500);
         } else {
             $queryUrl = 'crm.company.contact.add';
             $queryData = http_build_query(array(
@@ -106,7 +105,8 @@ class Br24Controller extends Controller
             ));
             Br24Conn::connWH($queryData, $queryUrl, 0);
         }
-        
+
+        $queryUrl = 'crm.contact.add';
         $queryData = http_build_query(array(
             'fields' => array(
                 'NAME' => $request->contact_name_2,
@@ -155,18 +155,35 @@ class Br24Controller extends Controller
                     'LAST_NAME' => $request->contact_second_name_1,
                 ),
             ));
+
+            $result = Br24Conn::connWH($queryData, $queryUrl, 0);
+            $contact1 = json_decode($result, 1);
         } else {
-            $queryUrl = 'crm.company.contact.add';
+            $queryUrl = 'crm.contact.add';
             $queryData = http_build_query(array(
                 'COMPANY_ID' => $id,
                 'NAME' => $request->contact_name_1,
                 'LAST_NAME' => $request->contact_second_name_1,
             ));
+
+            $result = Br24Conn::connWH($queryData, $queryUrl, 0);
+            $contact1 = json_decode($result, 1);
+
+            if(!isset($contact1['result'])) {
+                return response()->json(['error' => 'Error during first contact creation'], 500);
+            } else {
+                $queryUrl = 'crm.company.contact.add';
+                $queryData = http_build_query(array(
+                    'ID' => $id,
+                    'fields' => array(
+                        'CONTACT_ID' => $contact1['result']
+                    )
+                ));
+
+                Br24Conn::connWH($queryData, $queryUrl, 0);
+            }
         }
 
-        $result = Br24Conn::connWH($queryData, $queryUrl, 0);
-        $contact1 = json_decode($result, 1);
-        
         if(isset($request->contact_2_id) && !empty($request->contact_2_id)) {
             $queryUrl = 'crm.contact.update';
             $queryData = http_build_query(array(
@@ -176,19 +193,36 @@ class Br24Controller extends Controller
                     'LAST_NAME' => $request->contact_second_name_2,
                 ),
             ));
+
+            $result = Br24Conn::connWH($queryData, $queryUrl, 0);
+            $contact2 = json_decode($result, 1);
         } else {
-            $queryUrl = 'crm.company.contact.add';
+            $queryUrl = 'crm.contact.add';
             $queryData = http_build_query(array(
                 'COMPANY_ID' => $id,
                 'NAME' => $request->contact_name_2,
                 'LAST_NAME' => $request->contact_second_name_2,
             ));
-        }
-        
-        $result = Br24Conn::connWH($queryData, $queryUrl, 0);
-        $contact2 = json_decode($result, 1);
 
-        return response($company, 200);
+            $result = Br24Conn::connWH($queryData, $queryUrl, 0);
+            $contact2 = json_decode($result, 1);
+            
+            if(!isset($contact1['result'])) {
+                return response()->json(['error' => 'Error during second contact creation'], 500);
+            } else {
+                $queryUrl = 'crm.company.contact.add';
+                $queryData = http_build_query(array(
+                    'ID' => $id,
+                    'fields' => array(
+                        'CONTACT_ID' => $contact1['result']
+                    )
+                ));
+
+                Br24Conn::connWH($queryData, $queryUrl, 0);
+            }
+        
+            return response($company, 200);
+        }
     }
 
     public function createFields(){
