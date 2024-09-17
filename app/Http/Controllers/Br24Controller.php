@@ -114,18 +114,18 @@ class Br24Controller extends Controller
         $queryData = http_build_query(array(
             'ID' => $id,
             'fields' => array(
-                "TITLE" =>  $_REQUEST['company_name'],
-                "email" => $_REQUEST['email']
+                "TITLE" =>  $request->company_name,
+                "email" => $request->email
             ),
         ));
     
         $result = Br24Conn::ConnWH($queryData, $queryUrl, 0);
         $company = json_decode($result, 1);
         
-        if($_REQUEST['contact_1_id']) {
+        if(isset($request->contact_1_id) && !empty($request->contact_1_id)) {
             $queryUrl = 'crm.contact.update';
             $queryData = http_build_query(array(
-                'ID' => $_REQUEST['contact_1_id'],
+                'ID' => $request->contact_1_id,
                 'name' => $request->contact_name_1,
                 'second_name' => $request->contact_second_name_1,
             ));
@@ -141,10 +141,10 @@ class Br24Controller extends Controller
         $result = Br24Conn::connWH($queryData, $queryUrl, 0);
         $contact1 = json_decode($result, 1);
         
-        if($_REQUEST['contact_2_id']) {
+        if(isset($request->contact_2_id) && !empty($request->contact_2_id)) {
             $queryUrl = 'crm.contact.update';
             $queryData = http_build_query(array(
-                'ID' => $_REQUEST['contact_2_id'],
+                'ID' => $request->contact_2_id,
                 'name' => $request->contact_name_2,
                 'second_name' => $request->contact_second_name_2,
             ));
