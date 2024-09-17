@@ -235,6 +235,13 @@ class Br24Controller extends Controller
         $result = Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
         $result = json_decode($result, 1);
         
+        $queryUrl = 'crm.company.contact.items.delete';
+        $queryData = http_build_query(array(
+            'ID' => $id));
+
+        $result = Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
+        $result = json_decode($result, 1);
+
         return response('', 200);
     }
 
