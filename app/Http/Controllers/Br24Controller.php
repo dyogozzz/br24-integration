@@ -248,9 +248,9 @@ class Br24Controller extends Controller
         //             'COMPANY_ID' => $id
         //             )
         //         ));
+        // $result = Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
         // }
 
-        $result = Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
 
         $queryUrl = 'crm.company.delete';
         $queryData = http_build_query(array(
