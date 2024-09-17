@@ -161,10 +161,10 @@ class Br24Controller extends Controller
         } else {
             $queryUrl = 'crm.contact.add';
             $queryData = http_build_query(array(
-                'fields' => {
+                'fields' => array(
                     'NAME' => $request->contact_name_1,
                     'LAST_NAME' => $request->contact_second_name_1,
-                }
+                )
             ));
 
             $result = Br24Conn::connWH($queryData, $queryUrl, 0);
@@ -200,10 +200,10 @@ class Br24Controller extends Controller
         } else {
             $queryUrl = 'crm.contact.add';
             $queryData = http_build_query(array(
-                'fields' => {
+                'fields' => array(
                     'NAME' => $request->contact_name_2,
                     'LAST_NAME' => $request->contact_second_name_2,
-                }
+                )
             ));
 
             $result = Br24Conn::connWH($queryData, $queryUrl, 0);
