@@ -27,12 +27,7 @@ class Br24Controller extends Controller
         
         $result = Br24Conn::ConnWH($queryData, $queryUrl, 0);
         $companies = json_decode($result, 1);
-
-        if(empty($companies['result'])) {
-            $this->createFields();
-            // return response()->json(['error' => $companies], 500);
-        }
-
+        
         $queryUrl = 'crm.contact.list';
         $queryData = http_build_query(array(
             'select' => [ "*"]
@@ -256,21 +251,5 @@ class Br24Controller extends Controller
         $result = json_decode($result, 1);
         
         return response('', 200);
-    }
-
-    public function createFields() {
-        $queryUrl = 'crm.company.userfield.add';
-        $queryData = http_build_query(array(
-            'fields' => array(
-                "FIELD_NAME" => "EMAIL",
-                "EDIT_FORM_LABEL" => "EMAIL",
-                "LIST_COLUMN_LABEL" => "EMAIL",
-                "USER_TYPE_ID" => "string",
-                "XML_ID" => "EMAIL",
-                "SETTINGS" => array("DEFAULT_VALUE" => "")
-            )));
-
-        $result = Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
-        $result = json_decode($result, 1);
     }
 }
