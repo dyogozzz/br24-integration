@@ -158,7 +158,7 @@ class Br24Controller extends Controller
 
             $result = Br24Conn::connWH($queryData, $queryUrl, 0);
             $contact1 = json_decode($result, 1);
-        } else {
+        } else if(isset($request->contact_name_1) && !empty($request->contact_name_1) && isset($request->contact_second_name_1) && !empty($request->contact_second_name_1)){
             $queryUrl = 'crm.contact.add';
             $queryData = http_build_query(array(
                 'fields' => array(
@@ -197,7 +197,7 @@ class Br24Controller extends Controller
 
             $result = Br24Conn::connWH($queryData, $queryUrl, 0);
             $contact2 = json_decode($result, 1);
-        } else {
+        } else if(isset($request->contact_name_2) && !empty($request->contact_name_2) && isset($request->contact_second_name_2) && !empty($request->contact_second_name_2)){
             $queryUrl = 'crm.contact.add';
             $queryData = http_build_query(array(
                 'fields' => array(
@@ -235,7 +235,8 @@ class Br24Controller extends Controller
                 "EDIT_FORM_LABEL" => "EMAIL",
                 "LIST_COLUMN_LABEL" => "EMAIL",
                 "USER_TYPE_ID" => "string",
-                "XML_ID" => "EMAIL"
+                "XML_ID" => "EMAIL",
+                "SETTINGS" => array("DEFAULT_VALUE" => "")
             )));
 
         $result = Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
