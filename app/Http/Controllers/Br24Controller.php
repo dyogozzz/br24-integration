@@ -209,14 +209,14 @@ class Br24Controller extends Controller
             $result = Br24Conn::connWH($queryData, $queryUrl, 0);
             $contact2 = json_decode($result, 1);
             
-            if(!isset($contact1['result'])) {
+            if(!isset($contact2['result'])) {
                 return response()->json(['error' => 'Error during second contact creation'], 500);
             } else {
                 $queryUrl = 'crm.company.contact.add';
                 $queryData = http_build_query(array(
                     'ID' => $id,
                     'fields' => array(
-                        'CONTACT_ID' => $contact1['result']
+                        'CONTACT_ID' => $contact2['result']
                     )
                 ));
 
