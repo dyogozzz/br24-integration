@@ -94,7 +94,7 @@ class Br24Controller extends Controller
         $contact1 = json_decode($result, 1);
 
         if(!isset($contact1['result'])) {
-            return response()->json(['error' => 'Error during first contact creation'], 500);
+            return response()->json(['error' => $contact1], 500);
         }
         
         $queryData = http_build_query(array(
