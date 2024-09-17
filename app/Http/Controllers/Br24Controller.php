@@ -86,7 +86,7 @@ class Br24Controller extends Controller
         $queryData = http_build_query(array(
             'fields' => array(
                 'NAME' => $request->contact_name_1,
-                'SECOND_NAME' => $request->contact_second_name_1,
+                'LAST_NAME' => $request->contact_second_name_1,
             )
         ));
         
@@ -110,7 +110,7 @@ class Br24Controller extends Controller
         $queryData = http_build_query(array(
             'fields' => array(
                 'NAME' => $request->contact_name_2,
-                'SECOND_NAME' => $request->contact_second_name_2,
+                'LAST_NAME' => $request->contact_second_name_2,
             )
         ));
         
@@ -152,7 +152,7 @@ class Br24Controller extends Controller
                 'ID' => $request->contact_1_id,
                 'fields' => array(
                     'NAME' => $request->contact_name_1,
-                    'SECOND_NAME' => $request->contact_second_name_1,
+                    'LAST_NAME' => $request->contact_second_name_1,
                 ),
             ));
         } else {
@@ -160,7 +160,7 @@ class Br24Controller extends Controller
             $queryData = http_build_query(array(
                 'COMPANY_ID' => $id,
                 'NAME' => $request->contact_name_1,
-                'SECOND_NAME' => $request->contact_second_name_1,
+                'LAST_NAME' => $request->contact_second_name_1,
             ));
         }
 
@@ -173,7 +173,7 @@ class Br24Controller extends Controller
                 'ID' => $request->contact_2_id,
                 'fields' => array(
                     'NAME' => $request->contact_name_2,
-                    'SECOND_NAME' => $request->contact_second_name_2,
+                    'LAST_NAME' => $request->contact_second_name_2,
                 ),
             ));
         } else {
@@ -181,7 +181,7 @@ class Br24Controller extends Controller
             $queryData = http_build_query(array(
                 'COMPANY_ID' => $id,
                 'NAME' => $request->contact_name_2,
-                'SECOND_NAME' => $request->contact_second_name_2,
+                'LAST_NAME' => $request->contact_second_name_2,
             ));
         }
         
