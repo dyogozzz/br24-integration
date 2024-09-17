@@ -228,29 +228,23 @@ class Br24Controller extends Controller
     }
 
     public function deleteCompany(Request $request, $id) {
-        // if(isset($request->contact_1_id) && $request->contact_1_id != 0) {
-        //     $queryUrl = 'crm.contact.company.delete';
-        //     $queryData = http_build_query(array(
-        //         'ID' => $request->contact_2_id,
-        //         'fields' => array(
-        //             'COMPANY_ID' => $id
-        //         )
-        //     ));
-                
-        //     $result = Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
-        // }
+        if(isset($request->contact_1_id) && $request->contact_1_id != 0) {
+            $queryUrl = 'crm.contact.delete';
+            $queryData = http_build_query(array(
+                'ID' => $request->contact_2_id,
+            ));
             
-        // if(isset($request->contact_2_id) && $request->contact_2_id != 0) {
-        //     $queryUrl = 'crm.contact.company.delete';
-        //     $queryData = http_build_query(array(
-        //         'ID' => $request->contact_2_id,
-        //         'fields' => array(
-        //             'COMPANY_ID' => $id
-        //             )
-        //         ));
-        // $result = Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
-        // }
-
+            Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
+        }
+        
+        if(isset($request->contact_2_id) && $request->contact_2_id != 0) {
+            $queryUrl = 'crm.contact.delete';
+            $queryData = http_build_query(array(
+                'ID' => $request->contact_2_id,
+            ));
+                
+            Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
+        }
 
         $queryUrl = 'crm.company.delete';
         $queryData = http_build_query(array(
