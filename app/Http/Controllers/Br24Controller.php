@@ -158,7 +158,7 @@ class Br24Controller extends Controller
 
             $result = Br24Conn::connWH($queryData, $queryUrl, 0);
             $contact1 = json_decode($result, 1);
-        } else if(isset($request->contact_name_1) && !empty($request->contact_name_1) && isset($request->contact_second_name_1) && !empty($request->contact_second_name_1)){
+        } else if(isset($request->contact_name_1) && !empty($request->contact_name_1)){
             $queryUrl = 'crm.contact.add';
             $queryData = http_build_query(array(
                 'fields' => array(
@@ -197,7 +197,7 @@ class Br24Controller extends Controller
 
             $result = Br24Conn::connWH($queryData, $queryUrl, 0);
             $contact2 = json_decode($result, 1);
-        } else if(isset($request->contact_name_2) && !empty($request->contact_name_2) && isset($request->contact_second_name_2) && !empty($request->contact_second_name_2)){
+        } else if(isset($request->contact_name_2) && !empty($request->contact_name_2)){
             $queryUrl = 'crm.contact.add';
             $queryData = http_build_query(array(
                 'fields' => array(
