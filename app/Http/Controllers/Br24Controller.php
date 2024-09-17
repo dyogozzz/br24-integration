@@ -28,9 +28,9 @@ class Br24Controller extends Controller
         $result = Br24Conn::ConnWH($queryData, $queryUrl, 0);
         $companies = json_decode($result, 1);
 
-        // if(!isset($companies['result']) && empty($companies['result'])) {
-        //     $this->createFields();
-        // }
+        if(!isset($companies['result']) && empty($companies['result'])) {
+            $this->createFields();
+        }
 
         $queryUrl = 'crm.contact.list';
         $queryData = http_build_query(array(
@@ -71,7 +71,7 @@ class Br24Controller extends Controller
         $queryData = http_build_query(array(
             'fields' => array(
                 'TITLE' => $request->company_name,
-                'email' => $request->email,
+                'EMAIL' => $request->email,
             )
         ));
 
@@ -139,7 +139,7 @@ class Br24Controller extends Controller
             'ID' => $id,
             'fields' => array(
                 "TITLE" =>  $request->company_name,
-                "email" => $request->email
+                "EMAIL" => $request->email
             ),
         ));
     
@@ -231,11 +231,11 @@ class Br24Controller extends Controller
         $queryUrl = 'crm.company.userfield.add';
         $queryData = http_build_query(array(
             'fields' => array(
-                "FIELD_NAME" => "email",
-                "EDIT_FORM_LABEL" => "email",
-                "LIST_COLUMN_LABEL" => "email",
+                "FIELD_NAME" => "EMAIL",
+                "EDIT_FORM_LABEL" => "EMAIL",
+                "LIST_COLUMN_LABEL" => "EMAIL",
                 "USER_TYPE_ID" => "string",
-                "XML_ID" => "email"
+                "XML_ID" => "EMAIL"
             )));
 
         $result = Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
