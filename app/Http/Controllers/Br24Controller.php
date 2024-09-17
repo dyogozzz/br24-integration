@@ -28,9 +28,9 @@ class Br24Controller extends Controller
         $result = Br24Conn::ConnWH($queryData, $queryUrl, 0);
         $companies = json_decode($result, 1);
 
-        return response()->json(['error' => $companies], 500);
-        if(!isset($companies['result']) && empty($companies['result'])) {
+        if(empty($companies['result'])) {
             $this->createFields();
+            // return response()->json(['error' => $companies], 500);
         }
 
         $queryUrl = 'crm.contact.list';
