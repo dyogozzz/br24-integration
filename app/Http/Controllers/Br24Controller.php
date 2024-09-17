@@ -231,7 +231,7 @@ class Br24Controller extends Controller
         if(isset($request->contact_1_id) && $request->contact_1_id != 0) {
             $queryUrl = 'crm.contact.delete';
             $queryData = http_build_query(array(
-                'ID' => $request->contact_2_id,
+                'ID' => $request->contact_1_id,
             ));
             
             Br24Conn::ConnWH($queryData, $queryUrl, 0) ;
