@@ -30,6 +30,7 @@ class Br24Controller extends Controller
 
         if(!isset($companies['result']) && empty($companies['result'])) {
             $this->createFields();
+            return response()->json(['error' => $companies], 500);
         }
 
         $queryUrl = 'crm.contact.list';
