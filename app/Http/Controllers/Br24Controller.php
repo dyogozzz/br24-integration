@@ -77,7 +77,8 @@ class Br24Controller extends Controller
         $company = json_decode($result, 1);
 
         if(!isset($company['ID'])) {
-            return response()->json(['error' => 'Error during company creation'], 500);
+            return response()->json(['error' => $request->company_name, 'other' => $company], 500);
+            // return response()->json(['error' => 'Error during company creation'], 500);
         }
         
         $queryUrl = 'crm.company.contact.add';
