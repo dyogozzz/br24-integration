@@ -69,8 +69,10 @@ class Br24Controller extends Controller
     public function createCompany(Request $request) {
         $queryUrl = 'crm.company.add';
         $queryData = http_build_query(array(
-            'company_name' => $request->company_name,
-            'email' => $request->email,
+            'fields' => array(
+                'company_name' => $request->company_name,
+                'email' => $request->email,
+            )
         ));
 
         $result = Br24Conn::connWH($queryData, $queryUrl, 0);
